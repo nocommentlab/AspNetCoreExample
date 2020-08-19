@@ -16,9 +16,11 @@ namespace AspNetCoreExample.Controllers
         private IContext _IContext;
         #endregion
 
-        public MyController(IContext iContext)
+        public MyController(IContext iContext, ITransientService transient, IScopedService scoped)
         {
             _IContext = iContext;
+            Console.Write($"transient service guid in controller is {transient.InstanceGuid}");
+            Console.Write($"scoped service guid in controller is {scoped.InstanceGuid}");
         }
 
         [HttpGet]

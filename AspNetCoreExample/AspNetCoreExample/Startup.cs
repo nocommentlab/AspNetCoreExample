@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AspNetCoreExample.Interfaces;
 using AspNetCoreExample.Model;
+using AspNetCoreExample.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -20,7 +21,10 @@ namespace AspNetCoreExample
         {
             // Registra tutti i controller
             services.AddControllers();
-            services.AddSingleton<IContext>(new Context());
+            //ho dovuto cambiare in addscoped perchè i singleton non possono consumare transient o scoped
+            services.AddScoped<IContext, Context>();
+            services.AddTransient<ITransientService, TransientService>();
+            services.AddScoped<IScopedService, ScopedService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

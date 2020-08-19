@@ -8,6 +8,12 @@ namespace AspNetCoreExample.Model
 {
     public class Context : IContext
     {
+        public Context(IScopedService scoped, ITransientService transient)
+        {
+            Console.Write($"transient service guid in controller is {transient.InstanceGuid}");
+            Console.Write($"scoped service guid in controller is {scoped.InstanceGuid}");
+        }
+
         #region Members
         private Int32 _INT32_Value;
         #endregion
